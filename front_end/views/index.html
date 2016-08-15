@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Daily Activity</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="../public/client.js"></script>
+    </head>
+
+    <body>
+        <div>
+            <p>Below lines will get loaded on initial page load.</p>
+            <!-- <p class="greeting-id">The ID is </p> -->
+            <!-- <p class="greeting-content">The content is </p> -->
+        </div>
+        <form>
+            <label for="personal">Personal</label>
+            <br/>
+            <textarea name="personalText" class="personalText" rows="10" cols="50" placeholder="Write personal stuff you learnt today."></textarea>
+            <br>
+            <label for="professional">Professional</label>
+            <br/>
+            <textarea name="professionalText" class="professionalText" rows="10" cols="50" placeholder="Write professional stuff you learnt today."></textarea>
+            <br>
+            <label for="other">Other</label>
+            <br/>
+            <textarea name="otherText" class="otherText" rows="10" cols="50" placeholder="Write other stuff you learnt today."></textarea>
+            <br>
+
+            <button type="submit">Submit</button>
+        </form>
+        <section class="dreams">
+            <ul id="dreams"></ul>
+      </section>
+    </body>
+</html>
