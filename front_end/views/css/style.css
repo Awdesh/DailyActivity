@@ -4,18 +4,6 @@ body {
   padding-bottom: 20px;
 }
 
-.jumbotron {
-  text-align: ;
-  background-image: url('../bot.jpg');
-  background-size: cover;
-  color: white;
-  height: 1150px;
-}
-
-.container {
-
-}
-
 .btn-lg {
   font-size: 36px;
 }
@@ -27,17 +15,6 @@ ul.nav, .jumbotron h1 {
 
 ul.nav{
   font-size: 13px;
-}
-
-.jumbotron h1{
-  margin-top:0px;
-  margin-bottom: 50px;
-}
-
-.jumbotron p {
-  margin-bottom: 30px;
-  padding: 0 50px;
-  height : 780px;
 }
 
 .homepage{

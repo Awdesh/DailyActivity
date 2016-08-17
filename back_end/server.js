@@ -23,8 +23,19 @@ app.get("/", function (req, res) {
 });
 
 app.get("/activities", function (req, res) {
-  console.log('activities get called');
-  res.send(activities);
+  // var queryParams = req.query;
+  // console.log(queryParams);
+  // var where = {};
+
+// if(queryParams.hasOwnProperty("personalText")){
+//         where.personalText = 
+//   console.log('activities get called');
+  
+  db.activities.findAll().then(function(activities){
+    res.json(activities);
+  }), function(e){
+    res.status(500).send();
+ };
 });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
@@ -48,7 +59,7 @@ var activities = [
   "Wash the dishes"
   ];
 
-db.sequelize.sync({force: true}).then(function(){
+db.sequelize.sync().then(function(){
   app.listen(PORT, function() {
       console.log('Express listening on port ' + PORT);
     });
