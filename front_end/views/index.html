@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Daily Activity</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="../public/client.js"></script>
-    </head>
 
-    <body>
-        <main>
-            <form>
-                <label for="personal">Personal</label>
-                <br/>
-                <textarea name="personalText" class="personalText" rows="10" cols="50" placeholder="Write personal stuff you learnt today."></textarea>
-                <br>
-                <label for="professional">Professional</label>
-                <br/>
-                <textarea name="professionalText" class="professionalText" rows="10" cols="50" placeholder="Write professional stuff you learnt today."></textarea>
-                <br>
-                <label for="other">Other</label>
-                <br/>
-                <textarea name="otherText" class="otherText" rows="10" cols="50" placeholder="Write other stuff you learnt today."></textarea>
-                <br>
+<head>
+    <title>Daily Activity</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../public/client.js"></script>
+    <script>
+        function activity_get() {
+            var _imei = document.getElementById('_imei').value;
+            var data = {
+                serialNumber: _imei,
+                deviceType: 'libris'
+            };
+            DailyActivityAPI.getActivity(function(d) {
+                //renderResult(d);
+                console.log('');
+            });
+        }
+    </script>
+</head>
 
-                <button type="submit">Submit</button>
-            </form>
+<body>
+    <main>
+        <form>
+            <label for="personal">Personal</label>
             <br/>
-                <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a target="_blank" href="#MyActivities">Get Activities</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+            <textarea name="personalText" class="personalText" rows="10" cols="50" placeholder="Write personal stuff you learnt today."></textarea>
+            <br>
+            <label for="professional">Professional</label>
+            <br/>
+            <textarea name="professionalText" class="professionalText" rows="10" cols="50" placeholder="Write professional stuff you learnt today."></textarea>
+            <br>
+            <label for="other">Other</label>
+            <br/>
+            <textarea name="otherText" class="otherText" rows="10" cols="50" placeholder="Write other stuff you learnt today."></textarea>
+            <br>
 
-            <section class="activities" >
-                <ul id="activities"></ul>
-          </section>
-      </main>
-    </body>
+            <button type="submit">Submit</button>
+        </form>
+        <br/>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:activity_get()">Get Activities</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+
+        <section class="activities">
+            <ul id="activities"></ul>
+        </section>
+    </main>
+</body>
+
 </html>
