@@ -36,8 +36,31 @@ app.get("/activities", function(req, res) {
     }),
     function(e) {
       res.status(500).send();
-    };
+    }
 });
+
+app.get("/todayactivities", function(req, res) {
+  // var days = req.query;
+  var date = new Date();
+  var n = date.getDate();
+  var last = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
+  console.log(last);
+  console.log(n);
+
+  db.activities.findAll({
+      where: {
+        createdAt: {
+          $gt: last
+        }
+      }
+    }).then(function(activities) {
+      res.json(activities);
+    }),
+    function(e) {
+      res.status(500).send();
+    }
+});
+
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
 app.post("/activities", function(req, res) {
@@ -53,16 +76,7 @@ app.post("/activities", function(req, res) {
   });
 });
 
-// Simple in-memory store for now
-var activities = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
-
-db.sequelize.sync({
-  force: true
-}).then(function() {
+db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log('Express listening on port ' + PORT);
   });

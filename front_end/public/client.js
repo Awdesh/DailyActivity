@@ -12,6 +12,16 @@ $(function() {
     });
   });
 
+  $(".myButton1").click(function() {
+
+    $.get('/todayactivities', function(activities) {
+      activities.forEach(function(activity) {
+        console.log(activity);
+        console.log('called get');
+      });
+    });
+  });
+
   $('form').submit(function(event) {
     event.preventDefault();
     var personalText = $('.personalText').val();
@@ -55,4 +65,4 @@ $(function() {
 //     }
 //   });
 
-// };
+// };       // }; // };
