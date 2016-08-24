@@ -1,0 +1,19 @@
+{
+  "name": "front_end",
+  "version": "1.0.0",
+  "description": "mocha unit tests for front end",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha client-test.js"
+  },
+  "author": "Awdesh Sharma <awdesh.sharma1@gmail.com> (http://awdesh.com/)",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "jsdom": "^9.4.2",
+    "mocha": "^3.0.2"
+  }
+}
