@@ -28,7 +28,7 @@ app.get("/activities", function(req, res) {
   // var where = {};
 
   // if(queryParams.hasOwnProperty("personalText")){
-  //         where.personalText = 
+  //         where.personalText =
   //   console.log('activities get called');
 
   db.activities.findAll().then(function(activities) {
@@ -36,16 +36,18 @@ app.get("/activities", function(req, res) {
     }),
     function(e) {
       res.status(500).send();
-    }
+    };
 });
 
-app.get("/todayactivities", function(req, res) {
+app.get("/weekactivities", function(req, res) {
   // var days = req.query;
   var date = new Date();
   var n = date.getDate();
+  console.log('calling todays activities');
+  console.log(date);
+  console.log(n);
   var last = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
   console.log(last);
-  console.log(n);
 
   db.activities.findAll({
       where: {
@@ -58,13 +60,37 @@ app.get("/todayactivities", function(req, res) {
     }),
     function(e) {
       res.status(500).send();
-    }
+    };
+});
+
+//
+app.get("/todayactivities", function(req, res) {
+  // var days = req.query;
+  var date = new Date();
+  var n = date.getDate();
+  console.log('calling todays activities');
+  console.log(date);
+  console.log(n);
+
+  db.activities.findAll({
+      where: {
+        createdAt: {
+          $eq: n
+        }
+      }
+    }).then(function(activities) {
+      res.json(activities);
+    }),
+    function(e) {
+      res.status(500).send();
+    };
 });
 
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
 app.post("/activities", function(req, res) {
   var body = _.pick(req.body, 'personalText', 'professionalText', 'otherText');
+  // var body = req.body;
   console.log("body is-:" + body);
   db.activities.create(body).then(function(activities) {
     if (activities)
