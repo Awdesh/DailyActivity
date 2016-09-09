@@ -23,19 +23,20 @@ app.get("/", function(req, res) {
 });
 
 app.get("/activities", function(req, res) {
-  // var queryParams = req.query;
-  // console.log(queryParams);
-  // var where = {};
+  var queryParams = req.query;
+  console.log(queryParams);
+  var where = {};
 
-  // if(queryParams.hasOwnProperty("personalText")){
-  //         where.personalText =
-  //   console.log('activities get called');
+  if(queryParams.hasOwnProperty('personalText')){
+          where.personalText = {
+              $like: '%' + queryParams.personalText + '%'
+          };
+    }
 
-  db.activities.findAll().then(function(activities) {
+  db.activities.findAll({where:where}).then(function(activities) {
       res.json(activities);
-    }),
-    function(e) {
-      res.status(500).send();
+    }), function(e) {
+        res.status(500).send();
     };
 });
 
@@ -62,6 +63,20 @@ app.get("/weekactivities", function(req, res) {
       res.status(500).send();
     };
 });
+
+// app.get("/activities", function(req, res){
+//
+//     var activity = req.params.activity;
+//     db.activities.findAll({
+//       where: {
+//         $like: '%activity'
+//       }
+//     }).then(function(activities){
+//       res.json(activities);
+//     }), function(e) {
+//       res.status(500).send();
+//     };
+// });
 
 //
 app.get("/todayactivities", function(req, res) {
