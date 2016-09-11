@@ -27,26 +27,26 @@ app.get("/activities", function(req, res) {
   console.log(queryParams);
   var where = {};
 
-  if(queryParams.hasOwnProperty('personalText')){
-          where.personalText = {
-              $like: '%' + queryParams.personalText + '%'
-          };
-    }
-  else if(queryParams.hasOwnProperty('professionalText')){
-          where.professionalText = {
-              $like: '%' + queryParams.professionalText + '%'
-          };
-    }
-  else {
+  if (queryParams.hasOwnProperty('personalText')) {
+    where.personalText = {
+      $like: '%' + queryParams.personalText + '%'
+    };
+  } else if (queryParams.hasOwnProperty('professionalText')) {
+    where.professionalText = {
+      $like: '%' + queryParams.professionalText + '%'
+    };
+  } else {
     where.otherText = {
-        $like: '%' + queryParams.otherText + '%'
+      $like: '%' + queryParams.otherText + '%'
     };
   }
-  db.activities.findAll({where:where}).then(function(activities) {
-      res.json(activities);
-    }), function(e) {
-        res.status(500).send();
-    };
+  db.activities.findAll({
+    where: where
+  }).then(function(activities) {
+    res.json(activities);
+  }), function(e) {
+    res.status(500).send();
+  };
 });
 
 app.get("/weekactivities", function(req, res) {
@@ -60,17 +60,17 @@ app.get("/weekactivities", function(req, res) {
   console.log(last);
 
   db.activities.findAll({
-      where: {
-        createdAt: {
-          $gt: last
-        }
+    where: {
+      createdAt: {
+        $gt: last
       }
-    }).then(function(activities) {
-      res.json(activities);
-    }),
-    function(e) {
-      res.status(500).send();
-    };
+    }
+  }).then(function(activities) {
+    res.json(activities);
+  }),
+  function(e) {
+    res.status(500).send();
+  };
 });
 
 // app.get("/activities", function(req, res){
@@ -97,17 +97,17 @@ app.get("/todayactivities", function(req, res) {
   console.log(n);
 
   db.activities.findAll({
-      where: {
-        createdAt: {
-          $eq: n
-        }
+    where: {
+      createdAt: {
+        $eq: n
       }
-    }).then(function(activities) {
-      res.json(activities);
-    }),
-    function(e) {
-      res.status(500).send();
-    };
+    }
+  }).then(function(activities) {
+    res.json(activities);
+  }),
+  function(e) {
+    res.status(500).send();
+  };
 });
 
 
