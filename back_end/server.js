@@ -32,7 +32,16 @@ app.get("/activities", function(req, res) {
               $like: '%' + queryParams.personalText + '%'
           };
     }
-
+  else if(queryParams.hasOwnProperty('professionalText')){
+          where.professionalText = {
+              $like: '%' + queryParams.professionalText + '%'
+          };
+    }
+  else {
+    where.otherText = {
+        $like: '%' + queryParams.otherText + '%'
+    };
+  }
   db.activities.findAll({where:where}).then(function(activities) {
       res.json(activities);
     }), function(e) {
