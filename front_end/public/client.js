@@ -23,11 +23,12 @@ $(function() {
   });
 
   $('form').submit(function(event) {
+    console.log('subitting');
     event.preventDefault();
     var personalText = $('.personalText').val();
     var professionalText = $('.professionalText').val();
     var otherText = $('.otherText').val();
-    console.log(personalText + professionalText + otherText);
+    // console.log(personalText + professionalText + otherText + d);
     var formInput = {
       "personalText": personalText,
       "professionalText": professionalText,
@@ -35,7 +36,7 @@ $(function() {
     };
     $.ajax({
       type: "POST",
-      dataType: "json",
+      dataType: 'jsonp',
       url: "/activities",
       contentType: 'application/json',
       data: JSON.stringify(formInput),

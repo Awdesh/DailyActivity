@@ -8,7 +8,7 @@ var app = express();
 var _ = require('underscore');
 var path = require('path');
 var db = require('./db.js');
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8080;
 var IP = process.env.IP;
 
 app.use(bodyParser.json());
@@ -23,6 +23,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/activities", function(req, res) {
+  console.log(PORT);
   var queryParams = req.query;
   console.log(queryParams);
   var where = {};
@@ -35,27 +36,26 @@ app.get("/activities", function(req, res) {
     where.professionalText = {
       $like: '%' + queryParams.professionalText + '%'
     };
-  } else {
+  } else if (queryParams.hasOwnProperty('otherText')) {
     where.otherText = {
       $like: '%' + queryParams.otherText + '%'
     };
   }
+  console.log('reached here');
   db.activities.findAll({
     where: where
   }).then(function(activities) {
+    console.log(activities);
     res.json(activities);
   }), function(e) {
     res.status(500).send();
+  // process.exit(1);
   };
 });
 
 app.get("/weekactivities", function(req, res) {
   // var days = req.query;
   var date = new Date();
-  var n = date.getDate();
-  console.log('calling todays activities');
-  console.log(date);
-  console.log(n);
   var last = new Date(date.getTime() - 7 * 24 * 60 * 60 * 1000);
   console.log(last);
 
@@ -73,21 +73,25 @@ app.get("/weekactivities", function(req, res) {
   };
 });
 
-// app.get("/activities", function(req, res){
-//
-//     var activity = req.params.activity;
-//     db.activities.findAll({
-//       where: {
-//         $like: '%activity'
-//       }
-//     }).then(function(activities){
-//       res.json(activities);
-//     }), function(e) {
-//       res.status(500).send();
-//     };
-// });
+app.get("/monthactivities", function(req, res) {
+  // var days = req.query;
+  var date = new Date();
+  var last = new Date(date.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-//
+  db.activities.findAll({
+    where: {
+      createdAt: {
+        $gt: last
+      }
+    }
+  }).then(function(activities) {
+    res.json(activities);
+  }),
+  function(e) {
+    res.status(500).send();
+  };
+});
+
 app.get("/todayactivities", function(req, res) {
   // var days = req.query;
   var date = new Date();
@@ -110,7 +114,6 @@ app.get("/todayactivities", function(req, res) {
   };
 });
 
-
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
 app.post("/activities", function(req, res) {
   var body = _.pick(req.body, 'personalText', 'professionalText', 'otherText');
@@ -131,3 +134,5 @@ db.sequelize.sync().then(function() {
     console.log('Express listening on port ' + PORT);
   });
 });
+
+module.exports = app;

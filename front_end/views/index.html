@@ -5,15 +5,6 @@
     <title>Daily Activity</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="../public/client.js"></script>
-    <script>
-        function activity_get() {
-            console.log('called');
-            DailyActivityAPI.getActivity(function(d) {
-                //renderResult(d);
-                console.log('');
-            });
-        }
-    </script>
 </head>
 
 <body>
@@ -37,6 +28,7 @@
         <br/>
 
         <div>
+          <input type=button onClick="location.href='index1.html'" value='click here to visit home page'>
             <button class="myButton">GetActivities</button>
             <button class="myButton1">Week's Activities</button>
             <button class="myButton1">Month's Activities</button>
